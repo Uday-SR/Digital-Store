@@ -1,0 +1,266 @@
+/* Container styles */
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-image: url('./assets/bgimg.jpg') ; /* Adjust path */
+  background-size: cover;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+/*background image*/
+.bg-img {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+/* Header styles */
+.header {
+  padding-top: 0.4rem;
+  padding: 3px 3px;
+}
+
+/* Inner Header styles */
+.inheader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 16px; 
+  box-shadow: 0px 8px 8px rgba(8, 244, 220, 0.1);
+  background: rgba(51, 42, 42, 0.3); 
+  backdrop-filter: blur(5px);
+  color: white;
+  min-height: 30px;
+  border-radius: 25%;
+}
+
+
+/* Left nav styles */
+.leftNav {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+  position: relative;
+}
+
+/* Right nav styles */
+.rightNav {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.search-wrapper {
+  display: flex;
+  align-items: center;
+  background-color: var(--bg);
+  border-radius: 10px;
+  padding: 6px 10px;
+  box-shadow: inset 0 0 10px rgb(255, 206, 8);
+  transition: all 0.3s ease;
+  width: 100%;
+  max-width: 300px;
+  min-width: 120px; /* prevent collapsing too small */
+  flex: 1;
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  outline: none;
+  color: var(--text);
+  font-size: 16px;
+}
+
+.search-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: var(--text);
+}
+
+/* Responsive */
+@media (max-width: 400px) {
+  .search-wrapper {
+    width: 100%;
+  }
+}
+
+/* Light/Dark Theme */
+:root {
+  --bg: #f0f0f0;
+  --text: #111;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #222;
+    --text: #eee;
+  }
+}
+
+
+/* Profile pic styles */
+.profile-section {
+  position: relative;
+}
+
+.profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  background-color: #555;
+}
+
+/* Dropdown styles */
+.dropdown {
+  position: absolute;
+  top: 50px; /* distance from profile pic */
+  right: 0;
+  background-color: white;
+  color: rgb(0, 0, 0);
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  width: 150px;
+  padding: 10px;
+  z-index: 10;
+}
+
+.dropdown p {
+  margin: 0;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.dropdown p:hover {
+  background-color: #f0f0f0;
+}
+
+/* Main and footer just for layout */
+.main {
+  flex: 1;
+  padding: 20px;
+  
+}
+
+
+.intro-box {
+  background-color: rgba(0, 0, 0, 0.85);
+  color: white;
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  max-width: 600px;
+  margin: 30px auto;
+  box-shadow: 0 0 20px red;
+}
+
+.explore-btn {
+  margin-top: 20px;
+  padding: 12px 24px;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.explore-btn:hover {
+  background-color: darkred;
+}
+
+.content-preview {
+  margin-top: 40px;
+  text-align: center;
+  color: #222;
+}
+
+.product-grid {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.product-card {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 200px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* Auth-Forum */
+
+.auth-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* full screen height */
+  padding: 0 20px; /* for small screens */
+  
+}
+
+.form-box {
+  background-color: rgba(0, 0, 0, 0.85);
+  color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 0 20px red;
+}
+
+.form-input {
+  display: block;
+  margin: 12px 0;
+  padding: 12px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #222;
+  color: white;
+}
+
+.form-button {
+  margin-top: 20px;
+  padding: 12px 24px;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.form-button.secondary {
+  background: #666;
+  margin-top: 10px;
+}
+
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 16px; 
+  box-shadow: 0px 8px 8px rgba(244, 24, 8, 0.1);
+  background: rgba(51, 42, 42, 0.3); 
+  backdrop-filter: blur(5px);
+  color: white;
+  min-height: 30px;
+  border-radius: 25%;
+}
+
