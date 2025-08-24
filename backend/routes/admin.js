@@ -1,12 +1,14 @@
 const { Router } = require("express");
 const { adminModel, contentModel } = require("./db");
+const { signupSchema, signinSchema } = require("./validators");
+const { validate } = require("../middlewares/validate");
 const jwt = require("jsonwebtoken");
 const { JWT_ADMIN_SECRET } = require("../config");
 const { adminMiddleware } = require("../middlewares/admin");
 
 const adminRouter = Router();
 
-adminRouter.post("/signup", async (req, res) => {
+adminRouter.post("/signup", validate(signupSchema), async (req, res) => {
     const { email, password, firstName, lastName} = req.body;
     //zod validation
     //bcrypt hashing
@@ -47,7 +49,7 @@ adminRouter.post("/signup", async (req, res) => {
     }
 });
 
-adminRouter.post("/signin", async (req, res) => {
+adminRouter.post("/signin", validate(signinSchema), async (req, res) => {
     const { email, password } = req.body;
 
     try {
@@ -127,6 +129,27 @@ adminRouter.get("/content/bulk", adminMiddleware, async (req, res) => {
         res.status(500).json({ msg: "Error fetching content" });
     }
 });
+
+adminRouter.delete("/content/:id", adminMiddleware, async (req, res) => {
+    const adminId = req.adminId;
+    const { id } = req.params;
+
+    try {
+        const deleted = await contentModel.findOneAndDelete({
+            _id: id,
+            creatorId: adminId
+        });
+
+        if (!deleted) {
+            return res.status(404).json({ msg: "Content not found or unauthorized" });
+        }
+
+        res.json({ msg: "Content deleted!" });
+    } catch (err) {
+        res.status(500).json({ msg: "Error deleting content" });
+    }
+});
+
 
 
 module.exports = {

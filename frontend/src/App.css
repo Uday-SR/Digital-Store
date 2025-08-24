@@ -2,12 +2,13 @@
 .container {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-  background-image: url('./assets/bgimg.jpg') ; /* Adjust path */
+  min-height: 100vh;         /* lets it grow */
+  background-image: url('./assets/bgimg.jpg');
   background-size: cover;
-  height: 100vh;
+  background-attachment: fixed; /* optional, if you want background static */
+  background-position: center;
   position: relative;
-  overflow: hidden;
+  overflow-x: hidden;        /* only hide horizontal scroll */
 }
 
 /*background image*/
@@ -23,6 +24,11 @@
 
 /* Header styles */
 .header {
+  position: fixed;      /* stick it at top */
+  top: 0;
+  left: 0;
+  width: 100%;          /* full width */
+  z-index: 1000;        /* stay above background/content */
   padding-top: 0.4rem;
   padding: 3px 3px;
 }
@@ -149,7 +155,7 @@
 .main {
   flex: 1;
   padding: 20px;
-  
+  margin-top: 70px; /* adjust equal to header height */
 }
 
 

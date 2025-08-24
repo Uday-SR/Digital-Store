@@ -1,5 +1,7 @@
 const { Router } = require("express");
 const { userModel, purchaseModel, contentModel } = require("./db");
+const { signupSchema, signinSchema } = require("./validators");
+const { validate } = require("../middlewares/validate");
 const jwt = require("jsonwebtoken");
 const { JWT_USER_SECRET } = require("../config");
 const { userMiddleware } = require("../middlewares/user");
@@ -7,7 +9,7 @@ const { userMiddleware } = require("../middlewares/user");
 
 const userRouter = Router();
 
-userRouter.post("/signup", async (req, res) => {
+userRouter.post("/signup", validate(signupSchema), async (req, res) => {
     const { email, password, firstName, lastName } = req.body;
 
     if (!email || !password || !firstName || !lastName) {
@@ -45,7 +47,7 @@ userRouter.post("/signup", async (req, res) => {
 });
 
 
-userRouter.post("/signin", async (req, res) => {
+userRouter.post("/signin", validate(signinSchema), async (req, res) => {
     const { email, password } = req.body;
 
     try {

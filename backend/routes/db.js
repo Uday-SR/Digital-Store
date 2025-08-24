@@ -22,7 +22,7 @@ const contentSchema = new Schema({
     description : String,
     price : Number,
     imageUrl : String,
-    createrId : ObjectId
+    creatorId: { type: ObjectId, ref: "admin" }
 });
 
 const purchaseSchema = new Schema({
