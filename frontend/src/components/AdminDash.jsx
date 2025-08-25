@@ -47,7 +47,10 @@ function AdminDash() {
     if (!token) return navigate("/AuthForum");
 
     try {
-      await axios.post("http://localhost:3000/api/v1/admin/content", newContent, {
+      await axios.post("http://localhost:3000/api/v1/admin/content", {
+        ...newContent,
+        price: Number(newContent.price)
+      }, {
         headers: { Authorization: `Bearer ${token}` },
       });
       alert("Content created!");
@@ -249,13 +252,13 @@ function AdminDash() {
                       className="form-button secondary"
                       onClick={() => setEditContent(item)}
                     >
-                      ✏️ Edit
+                      Edit
                     </button>
                     <button
                       className="form-button"
                       onClick={() => handleDelete(item._id)}
                     >
-                      🗑️ Delete
+                      Delete
                     </button>
                   </div>
                 </div>

@@ -9,7 +9,7 @@ function adminMiddleware(req, res, next) {
         }
 
         const token = authHeader.split(" ")[1];
-        const decoded = jwt.verify(token, JWT_USER_SECRET);
+        const decoded = jwt.verify(token, JWT_ADMIN_SECRET);
 
         req.adminId = decoded.id;
         next();

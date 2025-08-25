@@ -84,28 +84,35 @@ adminRouter.post("/signin", validate(signinSchema), async (req, res) => {
 });
 
 adminRouter.post("/content", adminMiddleware, async (req, res) => {
-    const adminId = req.adminId;
+  try {
+    const adminId = req.adminId; 
+    if (!adminId) return res.status(401).json({ msg: "Unauthorized" });
 
-    const  { title, description, imageUrl, price } = req.body;
+    const { title, description, imageUrl, price } = req.body;
 
     const content = await contentModel.create({
-        title : title,
-        description : description,
-        imageUrl : imageUrl,
-        price : price,
-        creatorId : adminId
+      title,
+      description,
+      imageUrl,
+      price: Number(price),
+      creatorId: adminId
     });
 
-    res.json({msg : "content created", contentId : content._id});
+    res.json({ msg: "content created", contentId: content._id });
+  } catch (err) {
+    console.error("Error creating content:", err);
+    res.status(500).json({ msg: "Error creating content", error: err.message });
+  }
 });
+
 
 adminRouter.put("/content", adminMiddleware, async (req, res) => {
     const adminId = req.adminId;
 
-    const  { title, description, imageUrl, price, courseId } = req.body;
+    const  { title, description, imageUrl, price, contentId } = req.body;
 
     const content = await contentModel.findOneAndUpdate({
-        _id : courseId,
+        _id : contentId,
         creatorId : adminId
     }, {
         title : title,
