@@ -10,7 +10,6 @@ const adminRouter = Router();
 
 adminRouter.post("/signup", validate(signupSchema), async (req, res) => {
     const { email, password, firstName, lastName} = req.body;
-    //zod validation
     //bcrypt hashing
 
     if (!email || !password || !firstName || !lastName) {

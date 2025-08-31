@@ -88,7 +88,7 @@ function AdminDash() {
     if (!token) return navigate("/AuthForum");
 
     try {
-      await axios.delete(`http://localhost:3000/api/v1/admin/content/${id}`, {
+      await axios.delete(`http://localhost:3000/api/v1/admin/content/:${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       alert("Content deleted!");
