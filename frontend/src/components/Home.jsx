@@ -4,6 +4,7 @@ import profileIcon from '../assets/profileIcon.png';
 import searchIcon from '../assets/searchIcon.png';
 import AuthForum from './AuthForum';
 import '../App.css';
+import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 
 function Home() {
@@ -11,6 +12,8 @@ function Home() {
   const dropdownRef = useRef(null);
 
   const [query, setQuery] = useState('');
+
+  const [content, setContent] = useState([]);
 
   const handleSearch = () => {
     alert(`Searching for: ${query}`);
@@ -31,6 +34,20 @@ function Home() {
 
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+
+  useEffect(() => {
+    const fetchContent = async () => {
+      try {
+        const res = await axios.get("http://localhost:3000/api/v1/content/preview");
+        setContent(res.data.content || []);
+      } catch (err) {
+        console.error("Error fetching content:", err);
+      }
+    };
+
+    fetchContent();
   }, []);
 
   return (
@@ -86,11 +103,35 @@ function Home() {
         </div>
 
         <div className="content-preview">
-          <h2>Popular Products</h2>
+          <h2>Content</h2>
           <div className="product-grid">
-            <div className="product-card">Course: React Basics</div>
-            <div className="product-card">Preset Pack: Cinematic LUTs</div>
-            <div className="product-card">Tool: SEO Analyzer</div>
+            {content.length > 0 ? (
+              content.map((item) => (
+                <div key={item._id} className="product-card">
+                  <img
+                    src={item.imageUrl}
+                    alt={item.title}
+                    style={{ width: "100%", borderRadius: "6px" }}
+                  />
+                  <h3>{item.title}</h3>
+                  <p>{item.description}</p>
+                  <p>
+                    <strong>₹{item.price}</strong>
+                  </p>
+                  <div style={{ display: "flex", gap: "10px"}}>
+                    
+                    <button
+                      className="form-button"
+                      onClick={handleAuth}
+                    >
+                      Buy Now
+                    </button>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p>No content available.</p>
+            )}
           </div>
         </div>
       </main>  
